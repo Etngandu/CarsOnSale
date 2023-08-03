@@ -1,0 +1,12 @@
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\bin\Debug\net7.0\ENB.Car.Sales.Infrastructure.deps.json
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\bin\Debug\net7.0\ENB.Car.Sales.Infrastructure.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\bin\Debug\net7.0\ENB.Car.Sales.Infrastructure.pdb
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.csproj.AssemblyReference.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.AssemblyInfoInputs.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.AssemblyInfo.cs
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\refint\ENB.Car.Sales.Infrastructure.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ENB.Car.Sales.Infrastructure.pdb
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Infrastructure\obj\Debug\net7.0\ref\ENB.Car.Sales.Infrastructure.dll

@@ -1,0 +1,193 @@
+﻿@model ENB.Car.Sales.MVC.Models.CreateAndEditFeaturesOnCarsForSale
+@using ENB.Car.Sales.Entities
+<div class="alert alert-primary" role="alert">
+    <h2><strong>Features On Car For Sale </strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4 card-header">
+        <form asp-action="Save" asp-route-carForSaleId="@ViewBag.IdcarForSale" asp-route-carModelId="@ViewBag.IdcarModel">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group" style="margin-top:5px">
+                <input type="hidden" id="a_id" value="0" asp-for="Id" />
+                <label asp-for="Finance_Company_Name" class="control-label card-header col-md-6"></label>
+                <input asp-for="Finance_Company_Name" id="a_finance_Company_Name" class="form-control" />
+                <span asp-validation-for="Finance_Company_Name" class="text-danger"></span>
+            </div>*@
+            
+                <div class="form-group" style="margin-top:5px">
+                      <input type="hidden" id="a_id" value="0" asp-for="Id" />
+                    <label asp-for="CarFeature" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                    <select id="a_drpEmpList" class="form-control" asp-for="CarFeatureId" asp-items="@(new SelectList(Model.ListCarFeatures, "Value", "Text"))">
+                        <option value="0">--Select--</option>
+                    </select>
+                    <span asp-validation-for="CarFeatureId" class="text-danger"></span>
+                </div>
+           
+            <div class="col-md-4" style="margin-top:5px">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="margin-left:60px">
+                        <div class="form-group">
+                            <input type="reset" class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="col-md-8">
+        <table id="FeatureCarForSaleTable" class="table table-striped table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>NameCarFeature</th>
+                    <th>Other_Details</th>
+                    <th> </th>
+                </tr>
+            </thead>
+        </table>
+
+        <link href="~/lib/datatable/datatable1.13/datatables-1.13.4/css/jquery.datatables.min.css" rel="stylesheet" />
+        <link href="~/lib/datatable/datatable1.13/datatables-1.13.4/css/datatables.bootstrap5.min.css" rel="stylesheet" />
+
+
+
+        @section scripts{
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script type="text/javascript" charset="utf8" src="~/lib/datatable/datatable1.13/datatables-1.13.4/js/jquery.datatables.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="~/lib/datatable/datatable1.13/datatables-1.13.4/js/datatables.bootstrap5.min.js"></script>
+            <script>
+                var Popup, datatable, IdcarModel = parseInt('@ViewBag.IdcarModel'), IdcarForSale = parseInt('@ViewBag.IdcarForSale')
+                $(document).ready(function () {
+                    datatable = $("#FeatureCarForSaleTable").DataTable({
+                        "ajax": {
+                            "url": "/FeaturesOnCarForSale/GetFeaturesperCarForSaleData/?carModelId=" + IdcarModel + "&carForSaleId=" + IdcarForSale + "",
+                            "type": "GET",
+                            "datatype": "json"
+                        },
+                        "columns": [
+
+                            { "data": "id" },
+                            { "data": "nameCarFeature" },
+                            { "data": "other_Details" },
+                            {
+                                "data": "id", "render": function (data) {
+                                    return "<a class= 'btn btn-danger btn-sm text-white' style = 'margin-left:5px' onclick='return popup(" + data + ");'> <i class='fa-solid fa-trash-can' > </i><b> Delete</b > </a>";
+                                },
+                                "orderable": false,
+                                "searchable": false,
+                                "width": "100px"
+                            }
+
+                        ],
+                        "language": {
+
+                            "emptyTable": "No data Found, Please Click On <b>Add New</b> Button"
+                        }
+
+                    });
+
+
+                    $('#FeatureCarForSaleTable tbody').on('click', 'tr', function () {
+                        if ($(this).hasClass('selected')) {
+                            $(this).removeClass('selected');
+                        } else {
+                            datatable.$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                            var rdata = datatable.row(this).data();
+                            console.log(rdata);
+                            populateForm(rdata);
+                        }
+                    });
+
+                });
+
+
+                class CreateAndEditFeaturesOnCarsForSale {
+                    Id = 0;
+                    CarFeatureId=0;
+                    Other_Details = "";
+                }
+
+                var formData = CreateAndEditFeaturesOnCarsForSale = new CreateAndEditFeaturesOnCarsForSale();
+
+
+                function populateForm(selectedRecord) {
+                    this.formData = Object.assign({}, selectedRecord);
+                    $('#a_drpEmpList').val(this.formData.carFeatureId);
+                    $('#a_id').val(this.formData.id);
+                    console.log(this.formData);
+                }
+
+
+
+                function popup(data) {
+                    console.log('clicked Delete');
+                    var heading = 'Confirm Delete Item DataTable';
+                    var question = 'Please confirm that you want to delete this? ';
+                    var cancelButtonTxt = 'Cancel';
+                    var okButtonTxt = 'Confirm';
+                    var callback = function () {
+                        console.log(data);
+                        window.location = '@Url.Action("Delete","FinanceCompany")' + '?id=' + data;
+                    };
+
+                    if (confirm(heading, question, cancelButtonTxt, okButtonTxt, callback)) {
+                        callback;
+                    }
+
+
+                }
+
+
+                /* Generic Confirm func */
+                function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback) {
+
+                    var confirmModal =
+                        $('<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">' +
+                            '<div class="modal-dialog">' +
+                            '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                            '<h5 class="modal-title" >' + heading + '</h5>' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>' +
+                            '</div>' +
+
+                            '<div class="modal-body">' +
+                            '<p class="alert alert-primary" role="alert">' + question + '</p>' +
+                            '</div>' +
+                            '<div class="modal-footer">' +
+                            '<button type="button" class="btn btn-secondary" aria-hidden="true" data-bs-dismiss="modal">' + cancelButtonTxt + '</button>' +
+                            '<button type ="button" data-dismiss="modal" id="okButton" aria-hidden="true" class="btn btn-primary">' +
+                            okButtonTxt +
+                            '</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+
+                    confirmModal.find('#okButton').click(function (event) {
+                        callback();
+                        confirmModal.modal('hide');
+                    });
+
+                    confirmModal.modal('show');
+                };
+                                                        /* END          Generic Confirm func */
+
+
+
+
+
+            </script>
+        }
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+﻿@model ENB.Car.Sales.MVC.Models.CreateAndEditCustomerPayment
+@using ENB.Car.Sales.Entities
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="alert alert-primary" role="alert">
+    <h2><strong>Edit Car Sold @ViewBag.Id from @ViewBag.Message</strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" asp-route-id="@ViewBag.Id" asp-route-customerId="@ViewBag.Idcustomer" asp-route-carSoldId="@ViewBag.IdcarSold">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="card-header" style="margin-top:10px">
+                            <label asp-for="Payment_Status" class="control-label"></label>
+                        </div>
+                        <select asp-for="Payment_Status" class="form-control" asp-items="Html.GetEnumSelectList<Payment_Status>()"></select>
+                        <span asp-validation-for="Payment_Status" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Customer_Payment_Date_Due" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Customer_Payment_Date_Due" class="form-control" />
+                        <span asp-validation-for="Customer_Payment_Date_Due" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Customer_Payment_Date_Made" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Customer_Payment_Date_Made" class="form-control" />
+                        <span asp-validation-for="Customer_Payment_Date_Made" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Actual_Payment_Amount" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Actual_Payment_Amount" class="form-control" />
+                        <span asp-validation-for="Actual_Payment_Amount" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:25px">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a asp-action="List" asp-route-customerId="@ViewBag.Idcustomer" asp-route-carSoldId="@ViewBag.IdcarSold" class="btn btn-secondary btn-block col-md-4">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

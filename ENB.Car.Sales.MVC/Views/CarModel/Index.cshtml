@@ -1,0 +1,201 @@
+﻿@model ENB.Car.Sales.MVC.Models.CreateAndEditCarModel
+@using ENB.Car.Sales.Entities
+<div class="alert alert-primary" role="alert">
+    <h2><strong>Car Models </strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-5 card-header">
+        <form asp-action="Save">            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="margin-top:5px">
+                <input type="hidden" id="a_id" value="0" asp-for="Id" />
+                <label asp-for="Model_code" class="control-label card-header col-md-6"></label>
+                <input asp-for="Model_code" id="a_model_code" class="form-control" />
+                <span asp-validation-for="Model_code" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top:5px">               
+                <label asp-for="Model_Name" class="control-label card-header col-md-6"></label>
+                <input asp-for="Model_Name" id="a_model_Name" class="form-control" />
+                <span asp-validation-for="Model_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top:5px">
+                <label asp-for="Manufacturer_code" class="control-label card-header col-md-6"></label>
+                <input asp-for="Manufacturer_code" id="a_manufacturer_code" class="form-control" />
+                <span asp-validation-for="Manufacturer_code" class="text-danger"></span>
+            </div>
+            <div class="col-md-5" style="margin-top:5px">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">                           
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="margin-left:20px">
+                        <div class="form-group">
+                            <input type="reset" class="btn btn-secondary"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="col-md-7">       
+        <table id="CarModelTable" class="table table-striped table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Model_code</th>
+                    <th>Model_Name</th>
+                    <th>Manufacturer_code</th>
+                    <th> </th>
+                </tr>
+            </thead>
+        </table>
+
+        <link href="~/lib/datatable/datatable1.13/datatables-1.13.4/css/jquery.datatables.min.css" rel="stylesheet" />
+        <link href="~/lib/datatable/datatable1.13/datatables-1.13.4/css/datatables.bootstrap5.min.css" rel="stylesheet" />
+        
+
+
+        @section scripts{
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script type="text/javascript" charset="utf8" src="~/lib/datatable/datatable1.13/datatables-1.13.4/js/jquery.datatables.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="~/lib/datatable/datatable1.13/datatables-1.13.4/js/datatables.bootstrap5.min.js"></script>
+            <script>
+
+                
+
+                var Popup, datatable
+                $(document).ready(function () {
+                    datatable = $("#CarModelTable").DataTable({
+                        "ajax": {
+                            "url": "/CarModel/GetCarModelData",
+                            "type": "GET",
+                            "datatype": "json"
+                        },
+                        "columns": [
+
+                            { "data": "id" },
+                            { "data": "model_code" },
+                            { "data": "model_Name" },
+                            { "data": "manufacturer_code" },
+                            {
+                                "data": "id", "render": function (data) {
+                                    return "<button  class= 'btn btn-danger btn-sm btn_delete'  data-bs-toggle='tooltip' title='Delete' data-bs-placement='top' style = 'margin-left:5px' onclick='return popup("+ data +");' type='button' > <i class='fa-solid fa-trash-can' > </i><b></b > </button>" + "\r\n" +
+                                           "<a class= 'btn btn-primary btn-sm text-white'  data-bs-toggle='tooltip' title='Car For Sale' data-bs-placement='top' style = 'margin-left:5px' onclick =location.href='@Url.Action("List","CarForSale")?carModelId=" + data + "'> <i class='fa-solid fa-car' > </i></a>";
+                                },
+                                "orderable": false,
+                                "searchable": false,
+                                "width": "100px"
+                            }
+
+                        ],
+                        "language": {
+
+                            "emptyTable": "No data Found, Please Click On <b>Add New</b> Button"
+                        }
+
+                    });
+
+
+                    $('#CarModelTable tbody').on('click', 'tr', function () {
+                        if ($(this).hasClass('selected')) {
+                            $(this).removeClass('selected');
+                        } else {
+                            datatable.$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                            var rdata = datatable.row( this ).data();
+                            console.log(rdata);
+                            populateForm(rdata);
+                        }
+                    });                 
+
+                });
+
+
+                class CreateAndEditCarModel {
+                    Id = 0;
+                    Model_code = "";
+                    Model_Name = "";
+                    Manufacturer_code = "";
+                }
+
+                var formData = CreateAndEditCarModel = new CreateAndEditCarModel();
+
+
+                function populateForm(selectedRecord) {
+                    this.formData = Object.assign({}, selectedRecord);
+                    $('#a_model_code').val(this.formData.model_code);
+                    $('#a_model_Name').val(this.formData.model_Name);
+                    $('#a_manufacturer_code').val(this.formData.manufacturer_code);
+                    $('#a_id').val(this.formData.id);                    
+                    console.log(this.formData);
+                }
+
+
+
+                 function  popup (data) {
+                    console.log('clicked Delete');
+                    var heading = 'Confirm Delete Item DataTable';
+                    var question = 'Please confirm that you want to delete this? ';
+                    var cancelButtonTxt = 'Cancel';
+                    var okButtonTxt = 'Confirm';
+                    var callback = function () {                       
+                        console.log(data);
+                        window.location = '@Url.Action("Delete","CarModel")' + '?id=' + data;
+                      };
+
+                    if (confirm(heading, question, cancelButtonTxt, okButtonTxt, callback)) {
+                        callback;
+                    }
+
+                   
+                }
+
+
+                /* Generic Confirm func */
+                function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback) {
+
+                    var confirmModal =
+                        $('<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">' +
+                            '<div class="modal-dialog">' +
+                            '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                            '<h5 class="modal-title" >' + heading + '</h5>' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>' +
+                            '</div>' +
+
+                            '<div class="modal-body">' +
+                            '<p class="alert alert-primary" role="alert">' + question + '</p>' +
+                            '</div>' +
+                            '<div class="modal-footer">' +
+                            '<button type="button" class="btn btn-secondary" aria-hidden="true" data-bs-dismiss="modal">' + cancelButtonTxt + '</button>' +
+                            '<button type ="button" data-dismiss="modal" id="okButton" aria-hidden="true" class="btn btn-primary">' +
+                            okButtonTxt +
+                            '</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+
+                    confirmModal.find('#okButton').click(function (event) {
+                        callback();
+                        confirmModal.modal('hide');
+                    });
+
+                    confirmModal.modal('show');
+                };
+                        /* END          Generic Confirm func */
+
+
+
+            </script>
+        }
+    
+    </div>
+
+</div>

@@ -1,0 +1,15 @@
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\bin\Debug\net7.0\ENB.Car.Sales.Entities.deps.json
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\bin\Debug\net7.0\ENB.Car.Sales.Entities.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\bin\Debug\net7.0\ENB.Car.Sales.Entities.pdb
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\bin\Debug\net7.0\ENB.Car.Sales.Infrastructure.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\bin\Debug\net7.0\ENB.Car.Sales.Infrastructure.pdb
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.csproj.AssemblyReference.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.AssemblyInfoInputs.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.AssemblyInfo.cs
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.csproj.CoreCompileInputs.cache
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.csproj.CopyComplete
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\refint\ENB.Car.Sales.Entities.dll
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ENB.Car.Sales.Entities.pdb
+C:\Devsource\ENB.Car.Sales\ENB.Car.Sales.Entities\obj\Debug\net7.0\ref\ENB.Car.Sales.Entities.dll

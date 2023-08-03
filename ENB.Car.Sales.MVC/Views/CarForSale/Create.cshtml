@@ -1,0 +1,94 @@
+﻿@model ENB.Car.Sales.MVC.Models.CreateAndEditCarForSale
+@using ENB.Car.Sales.Entities;
+@{
+    ViewData["Title"] = "Create";
+    
+}
+
+<div class="alert alert-primary" role="alert">
+    <h2><strong>Create car for sale</strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" asp-route-carModelId="@ViewBag.Idcarmodel">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CarManufacturer" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <select id="drpEmpList" class="form-control" asp-for="CarManufacturerId" asp-items="@(new SelectList(Model.ListMafacturers, "Value", "Text"))">
+                            <option value="0">--Select--</option>
+                        </select>
+                        <span asp-validation-for="CarManufacturerId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Asking_Price" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Asking_Price" class="form-control" />
+                        <span asp-validation-for="Asking_Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Current_Mileage" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Current_Mileage" class="form-control" />
+                        <span asp-validation-for="Current_Mileage" class="text-danger"></span>
+                    </div>
+                </div>  
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Date_Acquired" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Date_Acquired" class="form-control" />
+                        <span asp-validation-for="Date_Acquired" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Registration_Year" class="control-label card-header col-md-12" style="margin-bottom:5px"></label>
+                        <input asp-for="Registration_Year" class="form-control" />
+                        <span asp-validation-for="Registration_Year" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="card-header" style="margin-top:10px">
+                            <label asp-for="VehiculeCategory" class="control-label"></label>
+                        </div>
+                        <select asp-for="VehiculeCategory" class="form-control" asp-items="Html.GetEnumSelectList<VehiculeCategory>()"></select>
+                        <span asp-validation-for="VehiculeCategory" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:5px">
+                        <label asp-for="Other_details" class="control-label card-header col-md-12" style="margin-bottom:10px"></label>
+                        <textarea asp-for="Other_details" type="text" class="form-control" rows="5" autofocus></textarea>
+                        <span asp-validation-for="Other_details" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+                       
+            <div class="row" style="margin-top:25px">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a asp-action="List" asp-route-carModelId="@ViewBag.Idcarmodel" class="btn btn-secondary btn-block col-md-4">Back to List</a>
+                    </div>
+                </div>
+            </div>            
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
